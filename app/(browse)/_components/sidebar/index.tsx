@@ -5,7 +5,6 @@ import { Following, FollowingSkeleton } from "./following"
 import { Recommended, RecommendedSkeleton } from "./recommended";
 
 import { getRecommended } from "@/lib/recommended-service";
-import { About } from "../../../about";
 
 export const Sidebar = async () => {
   const recommended = await getRecommended();
@@ -17,9 +16,6 @@ export const Sidebar = async () => {
         <div className="flex flex-col flex-grow space-y-4 pt-4 lg:pt-0">
           <Following data={following} />
           <Recommended data={recommended} />
-          <div className="absolute bottom-20 flex items-center justify-center px-4">
-            <About />
-          </div>
         </div>
       </Wrapper>
     );

@@ -65,9 +65,9 @@ export const UserItem = ({
 export const UserItemSkeleton = () => {
     return (
         <li className="flex items-center gap-x-4 px-3 py-2">
-            <Skeleton className="min-h-[32px] min-w-[32px] rounded-full bg-indigo-950" />
+            <Skeleton className="min-h-[32px] min-w-[32px] rounded-full bg-gray-700" />
             <div className="flex-1">
-                <Skeleton className="h-6 bg-indigo-950" />
+                <Skeleton className="h-6 bg-gray-700" />
             </div>
         </li>
     );

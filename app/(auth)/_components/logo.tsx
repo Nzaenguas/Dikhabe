@@ -22,7 +22,7 @@ export const Logo = () => {
             <div className={cn(
                 "flex flex-col items-center", 
                 font.className)}>
-                <p className="text-xl font-semibold">
+                <p className="text-xl font-montserrat font-semibold">
                     Dikhabe
                 </p>
                 <p className="text-sm text-mutes-foreground">

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useIsClient } from "usehooks-ts";
 import { cn } from "@/lib/utils";
@@ -6,7 +6,6 @@ import { useSidebar } from "@/store/use-sidebar";
 import { ToggleSkeleton } from "./toggle";
 import { RecommendedSkeleton } from "./recommended";
 import { FollowingSkeleton } from "./following";
-import { Button } from "@/components/ui/button";
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -16,9 +15,18 @@ export const Wrapper = ({ children }: WrapperProps) => {
   const isClient = useIsClient();
   const { collapsed } = useSidebar((state) => state);
 
+  const baseClasses =
+    "fixed left-0 flex flex-col h-full bg-black border-r z-50 overflow-visible";
+
   if (!isClient) {
     return (
-      <aside className="fixed left-0 flex flex-col w-[70px] h-full bg-black border-r border-[#2D2E35] z-50">
+      <aside
+        className={cn(
+          baseClasses,
+          "border-[#2D2E35]",
+          "w-[70px]"
+        )}
+      >
         <ToggleSkeleton />
         <FollowingSkeleton />
         <RecommendedSkeleton />
@@ -29,7 +37,8 @@ export const Wrapper = ({ children }: WrapperProps) => {
   return (
     <aside
       className={cn(
-        "fixed left-0 flex flex-col h-full bg-black border-r border-white/10 z-50",
+        baseClasses,
+        "border-white/10",
         collapsed ? "w-[70px]" : "w-60"
       )}
     >

@@ -90,10 +90,10 @@ export const ChatForm =({
 export const ChatFormSkeleton = () => {
     return (
         <div className="flex flex-col item-center gap-y-4 p-3">
-            <Skeleton className="w-auto h-10 bg-indigo-950" />
+            <Skeleton className="w-auto h-10 bg-gray-700" />
             <div className="flex items-center gap-x-2 ml-auto">
-                <Skeleton className="h-7 w-7 bg-indigo-950" />
-                <Skeleton className="h-7 w-7 bg-indigo-950" />
+                <Skeleton className="h-7 w-7 bg-gray-700" />
+                <Skeleton className="h-7 w-7 bg-gray-700" />
             </div>
         </div>
     );

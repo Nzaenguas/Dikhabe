@@ -52,8 +52,8 @@ export const ToggleSkeleton = () => {
     return (
         <div className="p-3 plz-6 mb-2 hidden lg:flex items-center
         justify-betweeen w-full ">
-            <Skeleton className="h-6 w-[100px] bg-indigo-950"/>
-            <Skeleton className="h-6 w-6 bg-indigo-950"/>
+            <Skeleton className="h-6 w-[100px] bg-gray-700"/>
+            <Skeleton className="h-6 w-6 bg-gray-700"/>
         </div>
     )
 }
