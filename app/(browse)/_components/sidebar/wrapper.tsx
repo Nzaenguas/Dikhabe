@@ -38,7 +38,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
     <aside
       className={cn(
         baseClasses,
-        "border-white/10",
+        "border-zinc-300 dark:border-white/10",
         collapsed ? "w-[70px]" : "w-60"
       )}
     >

@@ -38,7 +38,7 @@ export const ChatList = ({
 export const ChatListSkeleton = () => {
   return (
     <div className="flex h-full items-center justify-center">
-      <Skeleton className="w-1/2 h-6 bg-zinc-700" />
+      <Skeleton className="w-1/2 h-6 bg-white dark:bg-zinc-700" />
     </div>
   )
 }

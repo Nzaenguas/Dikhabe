@@ -30,7 +30,7 @@ export const Toggle = () => {
         )}
             {!collapsed && (
                 <div className="p-3 pl-6 mb-2 flex items-center w-full">
-                    <p className="font-semibold text-white/50">
+                    <p className="font-semibold text-black dark:text-white/50">
                         For you
                     </p>
                     <Hint label={label} side="right" asChild>
@@ -52,8 +52,8 @@ export const ToggleSkeleton = () => {
     return (
         <div className="p-3 plz-6 mb-2 hidden lg:flex items-center
         justify-betweeen w-full ">
-            <Skeleton className="h-6 w-[100px] bg-zinc-700"/>
-            <Skeleton className="h-6 w-6 bg-zinc-700"/>
+            <Skeleton className="h-6 w-[100px] bg-white dark:bg-zinc-700"/>
+            <Skeleton className="h-6 w-6 bg-white dark:bg-zinc-700"/>
         </div>
     )
 }

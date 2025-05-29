@@ -68,7 +68,7 @@ export const ChatForm =({
                 disabled={isDisabled}
                 placeholder="send a message"
                 className={cn(
-                    "border-white/10",
+                    "border-zinc-300 dark:border-white/10",
                     (isFollowersOnly || isDelayed) && "rounded-t-none borber-t-0"
                 )}
             />
@@ -90,10 +90,10 @@ export const ChatForm =({
 export const ChatFormSkeleton = () => {
     return (
         <div className="flex flex-col item-center gap-y-4 p-3">
-            <Skeleton className="w-auto h-10 bg-zinc-700" />
+            <Skeleton className="w-auto h-10 bg-white dark:bg-zinc-700" />
             <div className="flex items-center gap-x-2 ml-auto">
-                <Skeleton className="h-7 w-7 bg-zinc-700" />
-                <Skeleton className="h-7 w-7 bg-zinc-700" />
+                <Skeleton className="h-7 w-7 bg-white dark:bg-zinc-700" />
+                <Skeleton className="h-7 w-7 bg-white dark:bg-zinc-700" />
             </div>
         </div>
     );

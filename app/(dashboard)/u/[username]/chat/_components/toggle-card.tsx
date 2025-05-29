@@ -50,6 +50,6 @@ export const ToggleCard = ({
 
 export const ToggleCardSkeleton = () => {
     return (
-        <Skeleton className="rounded-xl p-10 w-full bg-zinc-700" />
+        <Skeleton className="rounded-xl p-10 w-full bg-white dark:bg-zinc-700" />
     );
 };

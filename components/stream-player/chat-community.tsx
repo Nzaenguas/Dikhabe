@@ -58,7 +58,7 @@ return (
         <Input 
             onChange={(e) => onChange(e.target.value)}
             placeholder="Search community"
-            className="border-white/10"
+            className="border-zinc-300 dark:border-white/10"
         />
         <ScrollArea className="gap-y-2 mt-5">
             <p className="text-center text-sm text-muted-foreground hidden last:block p-2">

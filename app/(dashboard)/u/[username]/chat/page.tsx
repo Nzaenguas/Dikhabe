@@ -10,7 +10,7 @@ const ChatPage = async () => {
     }
 
     return (
-        <div className="p-6 h-full bg-zinc-700">
+        <div className="p-6 h-full bg-white dark:bg-zinc-700">
             <div className="mb-4">
                 <h1 className="test-2xl font-bold">
                     chat settings

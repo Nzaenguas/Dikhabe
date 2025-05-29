@@ -25,9 +25,9 @@ import Link from "next/link";
         <Button
         asChild
         className={cn(
-            "w-full h-12 bg-black hover:bg-zinc-700 text-white/70",
+            "w-full h-12 bg-black hover:bg-white dark:bg-zinc-700 text-black dark:text-white/70",
             collapsed ? "justify-center" : "justify-start",
-            isActive && "bg-zinc-700",
+            isActive && "bg-white dark:bg-zinc-700",
         )}
         >
             <Link href={href}>
@@ -50,9 +50,9 @@ import Link from "next/link";
  export const NavItemSkeleton = () => {
     return (
         <li className="flex items-center gap-x-4 px-3 py-2">
-            <Skeleton className="min-h-[48px] min-w-[46px] bg-zinc-700 rounded-md" />
+            <Skeleton className="min-h-[48px] min-w-[46px] bg-white dark:bg-zinc-700 rounded-md" />
             <div className="flex-1 hidden lg:block">
-                <Skeleton className="h-6 bg-zinc-700" />
+                <Skeleton className="h-6 bg-white dark:bg-zinc-700" />
             </div>
         </li>
     );
