@@ -1,3 +1,5 @@
+import type { Configuration } from 'webpack';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // @ts-ignore
@@ -15,9 +17,23 @@ const nextConfig = {
         hostname: 'uploadthing.com',
         pathname: '/**',
       },
-      
     ],
     unoptimized: true,
+  },
+
+  webpack(config: Configuration, { isServer }: { isServer: boolean }) {
+    if (!isServer) {
+      config.resolve = {
+        ...(config.resolve as any),
+        fallback: {
+          ...((config.resolve as any)?.fallback || {}),
+          crypto: false,
+          stream: false,
+          buffer: false,
+        },
+      };
+    }
+    return config;
   },
 };
 
