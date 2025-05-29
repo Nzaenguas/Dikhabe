@@ -17,7 +17,7 @@ const CommunityPage = async () => {
     console.log({ formattedData });
 
     return (
-        <div className="p-6 h-full bg-indigo-800">
+        <div className="p-6 h-full bg-zinc-700">
             <div className="mb=4">
                 <h1 className="text-xl font-bold">
                     Community Settings

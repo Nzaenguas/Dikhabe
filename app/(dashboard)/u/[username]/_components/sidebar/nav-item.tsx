@@ -27,7 +27,7 @@ import Link from "next/link";
         className={cn(
             "w-full h-12 bg-black hover:bg-gray-700 text-white/70",
             collapsed ? "justify-center" : "justify-start",
-            isActive && "bg-indigo-800",
+            isActive && "bg-zinc-700",
         )}
         >
             <Link href={href}>

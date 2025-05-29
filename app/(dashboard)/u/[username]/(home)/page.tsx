@@ -20,7 +20,7 @@ const Creatorpage = async ({ params }: CreatorPageProps) => {
   }
 
   return (
-    <div className="h-full w-full bg-indigo-800">
+    <div className="h-full w-full bg-zinc-700">
       <StreamPlayer 
         user={user}
         stream={user.stream}

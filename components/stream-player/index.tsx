@@ -71,7 +71,7 @@ const {
             )}
             >
                 <div className="space-y-4 col-span-1 lg:col-span-2 xl:xol-span-2
-            2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10 h-full bg-indigo-800">
+            2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10 h-full bg-zinc-700">
                     <Video
                         hostName={user.username}
                         hostIdentity={user.id}
@@ -121,7 +121,7 @@ const {
 
 export const StreamPLayerSkeleton =() => {
     return (
-        <div className="grid grid-cols lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 h-full bg-indigo-800">
+        <div className="grid grid-cols lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 h-full bg-zinc-700">
             <div className="space-y-4 col-span-1 lg:col-span-2 xl:xol-span-2
             2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
                 <VideoSkeleton />

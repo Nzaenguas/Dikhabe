@@ -27,7 +27,7 @@ const UserPage = async ({ params }: UserPageProps) => {
   }
 
   return (
-    <div className="h-full bg-indigo-800">
+    <div className="h-full bg-zinc-700">
     <StreamPlayer
       user={user}
       stream={user.stream}
