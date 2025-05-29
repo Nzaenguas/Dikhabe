@@ -17,8 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <body className="h-full w-full bg-indigo-800">
       <ThemeProvider 
         attribute="class" 
-        defaultTheme="light"
-        forcedTheme="light" 
+        defaultTheme="dark"
+        forcedTheme="dark" 
         storageKey="Dikhabe-theme"
       >
         <Toaster theme="light" position="bottom-center"/>

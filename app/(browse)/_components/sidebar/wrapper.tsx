@@ -6,6 +6,7 @@ import { useSidebar } from "@/store/use-sidebar";
 import { ToggleSkeleton } from "./toggle";
 import { RecommendedSkeleton } from "./recommended";
 import { FollowingSkeleton } from "./following";
+import { Button } from "@/components/ui/button";
 
 interface WrapperProps {
   children: React.ReactNode;
