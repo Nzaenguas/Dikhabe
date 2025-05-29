@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "@/components/ui/theme-provider";
 
 const THEMES = ["light", "dark", "system"] as const;
 type Theme = typeof THEMES[number];
@@ -12,19 +11,40 @@ type Theme = typeof THEMES[number];
 export const Logo = () => {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-
-  const { theme, setTheme } = useTheme();
+  const [theme, setTheme] = useState<Theme>("system");
 
   useEffect(() => {
     setMounted(true);
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      applyTheme(savedTheme);
+    } else {
+      applyTheme("system");
+    }
   }, []);
 
-  if (!mounted) return null;
+  function applyTheme(t: Theme) {
+    const root = document.documentElement;
+    if (t === "dark") {
+      root.classList.add("dark");
+    } else if (t === "light") {
+      root.classList.remove("dark");
+    } else {
+      // system theme: use media query
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (isDark) root.classList.add("dark");
+      else root.classList.remove("dark");
+    }
+  }
 
   function changeTheme(t: Theme) {
     setTheme(t);
-    setOpen(false); // close menu on theme change if you want
+    localStorage.setItem("theme", t);
+    applyTheme(t);
   }
+
+  if (!mounted) return null;
 
   return (
     <div className="relative flex items-center gap-2 pt-4 z-50 font-montserrat">
@@ -48,7 +68,7 @@ export const Logo = () => {
 
       {/* Text is a link to home */}
       <Link href="/">
-        <span className="text-black dark:text-white font-semibold text-4xl antialiased cursor-pointer select-none">
+        <span className="text-white font-semibold text-4xl antialiased cursor-pointer select-none">
           Dikhabe
         </span>
       </Link>
@@ -59,17 +79,17 @@ export const Logo = () => {
           <>
             <div
               id="logo-dialog"
-              className="fixed top-[80px] left-[50px] bg-zinc-900 border border-zinc-300 dark:border-white/10 text-black dark:text-white p-4 rounded-xl w-48 shadow-xl z-[1000]"
+              className="fixed top-[80px] left-[50px] bg-zinc-900 border border-white/10 text-white p-4 rounded-xl w-48 shadow-xl z-[1000]"
               role="dialog"
               aria-modal="true"
             >
               <Link href="/" onClick={() => setOpen(false)}>
-                <div className="w-full text-left px-2 py-2 rounded hover:bg-zinc-200 dark:hover:bg-white/10 cursor-pointer">
+                <div className="w-full text-left px-2 py-2 rounded hover:bg-white/10 cursor-pointer">
                   Home
                 </div>
               </Link>
               <Link href="/about" onClick={() => setOpen(false)}>
-                <div className="w-full text-left px-2 py-2 mt-2 rounded hover:bg-zinc-200 dark:hover:bg-white/10 cursor-pointer">
+                <div className="w-full text-left px-2 py-2 mt-2 rounded hover:bg-white/10 cursor-pointer">
                   About
                 </div>
               </Link>
@@ -81,7 +101,7 @@ export const Logo = () => {
                   <button
                     key={t}
                     onClick={() => changeTheme(t)}
-                    className={`w-full text-left px-2 py-1 rounded hover:bg-zinc-200 dark:hover:bg-white/10 cursor-pointer ${
+                    className={`w-full text-left px-2 py-1 rounded hover:bg-white/10 cursor-pointer ${
                       theme === t ? "bg-white/20" : ""
                     }`}
                   >
