@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import { toast } from "sonner";
 
 import { useState, useTransition, useRef } from "react";
 import { AlertTriangle } from "lucide-react";
-import { IngressInput } from "livekit-server-sdk";
+import { IngressInputType } from "@/lib/constant";
 
 import { createIngress } from "@/actions/ingress";
 import { Button } from "@/components/ui/button";
@@ -29,8 +29,9 @@ import {
     SelectValue
 } from "@/components/ui/select";
 
-const RTMP = IngressInput.RTMP_INPUT;
-const WHIP = IngressInput.WHIP_INPUT;
+const RTMP = IngressInputType.RTMP_INPUT;
+const WHIP = IngressInputType.WHIP_INPUT;
+
 
 export const ConnectModal = () => {
     const closeRef = useRef<HTMLButtonElement>(null);
