@@ -1,13 +1,11 @@
-import path from 'path'
-import type { NextConfig } from 'next'
-import type { Configuration } from 'webpack'
+import path from 'path';
+import type { NextConfig } from 'next';
+import type { Configuration } from 'webpack';
 
 const nextConfig: NextConfig = {
-  // Development CORS handling
-  // @ts-ignore
+  // @ts-ignore: custom property for dev proxy
   allowedDevOrigins: ['lacewing-easy-pleasantly.ngrok-free.app'],
 
-  // Image domain handling
   images: {
     remotePatterns: [
       {
@@ -24,36 +22,40 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
 
-  // Fallback for unsupported Node.js modules in browser
-    webpack(config: Configuration, { isServer }: { isServer: boolean }) {
+  webpack(config: Configuration, { isServer }) {
     if (!isServer) {
-      // Forcefully cast resolve as any to add fallback
-      config.resolve = {
-        ...(config.resolve as any),
-        fallback: {
-          ...(config.resolve && (config.resolve as any).fallback),
-          crypto: false,
-          stream: false,
-          buffer: false,
-        },
+      // Cast resolve to `any` to add fallback without TS error
+      const resolve = config.resolve as any;
+
+      resolve.fallback = {
+        ...(resolve.fallback || {}),
+        crypto: false,
+        stream: false,
+        buffer: false,
       };
+
+      resolve.alias = {
+        ...(resolve.alias || {}),
+        underscore: 'lodash',
+      };
+
+      resolve.extensions = [
+        ...(resolve.extensions || []),
+        '.ts',
+        '.tsx',
+        '.js',
+        '.jsx',
+        '.json',
+      ];
+
+      config.module?.rules?.push({
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      });
     }
+
     return config;
   },
-  // Turbopack customization
-  turbopack: {
-    root: path.join(__dirname),
-    resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-    resolveAlias: {
-      underscore: 'lodash',
-    },
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
-}
+};
 
-export default nextConfig
+export default nextConfig;
