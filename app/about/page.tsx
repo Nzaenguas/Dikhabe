@@ -2,7 +2,7 @@ import { Navbar } from "../(browse)/_components/navbar";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-black text-black dark:text-white flex flex-col">
+    <div className="min-h-screen bg-neutral-500 dark:bg-black text-black dark:text-white flex flex-col">
       <Navbar />
       <main className="flex-grow flex flex-col items-center justify-center px-4">
         <div className="max-w-2xl text-center space-y-6">

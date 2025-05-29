@@ -14,10 +14,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider appearance={{ baseTheme: dark }}>
   <html lang="en" className="h-full w-full" suppressHydrationWarning>
-    <body className="h-full w-full bg-white dark:bg-zinc-700">
+    <body className="h-full w-full bg-zinc-700">
       <ThemeProvider 
         attribute="class" 
-        defaultTheme="light"
+        defaultTheme="dark"
+        forcedTheme="dark" 
         storageKey="Dikhabe-theme"
       >
         <Toaster theme="light" position="bottom-center"/>

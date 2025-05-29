@@ -61,7 +61,7 @@ export const Actions = ({
             onClick={toggleFollow}
             size="sm"
             className={cn("w-full lg:w-auto text-muted-foreground",
-                isFollowing ? "bg-neutral-700 hover:bg-neutral-900" : "bg-red-700 hover:bg-red-900"
+                isFollowing ? "bg-red-700 hover:bg-red-900" : "bg-green-700 hover:bg-green-700"
             )}
         >
             <Heart

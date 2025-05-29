@@ -7,55 +7,62 @@ import { useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { clerkMiddleware } from '@clerk/nextjs/server';
 
 export const Search = () => {
-    const router = useRouter();
-    const [value, setValue] = useState("");
+  const router = useRouter();
+  const [value, setValue] = useState("");
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!value) return;
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!value) return;
 
-        const url = qs.stringifyUrl({
-            url: "/search",
-            query: { term: value },
-        }, { skipEmptyString: true });
-
-        router.push(url);
-    };
-    const onClear = () => {
-        setValue("");
-    };
-
-
-    return (
-        <form
-        onSubmit={onSubmit}
-            className="relative lg:w-full flex items-center"
-        >
-            <Input
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder="Search"
-            className="rounded-r-none focus-visible:ring-0
-            focus-visible:transparent in-focus-visible:ring-offset-0"
-            />
-            {value && (
-                <X 
-                className="absolute top-2.5 right-14
-                h-5 w-5 text-gray-400 cursor-pointer hover:opacity-75 transition"
-                onClick={onClear}
-                />
-            )}
-            <Button
-            type="submit"
-            size="sm"
-            variant="secondary"
-            className="rounded-l-none bg-blue-600"
-            >
-                <SearchIcon className="h-5 w-5 relative text-" />
-            </Button>
-        </form>
+    const url = qs.stringifyUrl(
+      {
+        url: "/search",
+        query: { term: value },
+      },
+      { skipEmptyString: true }
     );
+
+    router.push(url);
+  };
+
+  const onClear = () => {
+    setValue("");
+  };
+
+  return (
+    <form onSubmit={onSubmit} className="flex items-center lg:w-full">
+      {/* Input with right-rounded-none */}
+      <div className="relative flex-grow">
+        <Input
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Search"
+          className="rounded-r-none pr-10 focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+        {/* Clear (X) button inside input on the right side */}
+        {value && (
+          <button
+            type="button"
+            onClick={onClear}
+            className="absolute top-1/2 right-2 -translate-y-1/2 text-muted-foreground hover:text-white"
+            aria-label="Clear search"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+
+      {/* Search icon button */}
+      <Button
+        type="submit"
+        size="sm"
+        variant="secondary"
+        className="rounded-l-none bg-blue-600"
+      >
+        <SearchIcon className="h-5 w-5 text-muted-foreground hover:text-white" />
+      </Button>
+    </form>
+  );
 };

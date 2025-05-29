@@ -16,7 +16,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
   const { collapsed } = useSidebar((state) => state);
 
   const baseClasses =
-    "fixed left-0 flex flex-col h-full bg-black border-r z-50 overflow-visible";
+    "fixed left-0 flex flex-col h-full bg-neutral-500 dark:bg-black border-r z-50 overflow-visible";
 
   if (!isClient) {
     return (

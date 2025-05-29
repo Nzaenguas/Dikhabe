@@ -1,54 +1,32 @@
 "use client";
 
+import { 
+  Home, 
+  Info, 
+  HelpCircle,
+  LogIn, 
+  UserPlus 
+} from "lucide-react";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-
-const THEMES = ["light", "dark", "system"] as const;
-type Theme = typeof THEMES[number];
+import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 export const Logo = () => {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState<Theme>("system");
+  const { user } = useUser(); // Clerk user
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      applyTheme(savedTheme);
-    } else {
-      applyTheme("system");
-    }
   }, []);
-
-  function applyTheme(t: Theme) {
-    const root = document.documentElement;
-    if (t === "dark") {
-      root.classList.add("dark");
-    } else if (t === "light") {
-      root.classList.remove("dark");
-    } else {
-      // system theme: use media query
-      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (isDark) root.classList.add("dark");
-      else root.classList.remove("dark");
-    }
-  }
-
-  function changeTheme(t: Theme) {
-    setTheme(t);
-    localStorage.setItem("theme", t);
-    applyTheme(t);
-  }
 
   if (!mounted) return null;
 
   return (
     <div className="relative flex items-center gap-2 pt-4 z-50 font-montserrat">
-      {/* Icon toggles menu */}
+      {/* Toggle button */}
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="bg-white rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -66,14 +44,14 @@ export const Logo = () => {
         />
       </button>
 
-      {/* Text is a link to home */}
+      {/* Brand name */}
       <Link href="/">
         <span className="text-white font-semibold text-4xl antialiased cursor-pointer select-none">
           Dikhabe
         </span>
       </Link>
 
-      {/* Portal dialog */}
+      {/* Portal Dialog */}
       {open &&
         ReactDOM.createPortal(
           <>
@@ -84,34 +62,52 @@ export const Logo = () => {
               aria-modal="true"
             >
               <Link href="/" onClick={() => setOpen(false)}>
-                <div className="w-full text-left px-2 py-2 rounded hover:bg-white/10 cursor-pointer">
+                <div className="w-full text-left px-2 py-2 rounded hover:bg-white/10 cursor-pointer flex items-center gap-2">
+                  <Home className="h-4 w-4" />
                   Home
                 </div>
               </Link>
+
               <Link href="/about" onClick={() => setOpen(false)}>
-                <div className="w-full text-left px-2 py-2 mt-2 rounded hover:bg-white/10 cursor-pointer">
+                <div className="w-full text-left px-2 py-2 mt-2 rounded hover:bg-white/10 cursor-pointer flex items-center gap-2">
+                  <Info className="h-4 w-4" />
                   About
                 </div>
               </Link>
 
-              {/* Theme selector */}
+              <Link href="/help" onClick={() => setOpen(false)}>
+                <div className="w-full text-left px-2 py-2 mt-2 rounded hover:bg-white/10 cursor-pointer flex items-center gap-2">
+                  <HelpCircle className="h-4 w-4" />
+                  Help
+                </div>
+              </Link>
+
+
               <div className="mt-4 border-t border-white/20 pt-2">
-                <p className="mb-2 font-semibold">Theme</p>
-                {THEMES.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => changeTheme(t)}
-                    className={`w-full text-left px-2 py-1 rounded hover:bg-white/10 cursor-pointer ${
-                      theme === t ? "bg-white/20" : ""
-                    }`}
-                  >
-                    {t.charAt(0).toUpperCase() + t.slice(1)}
-                  </button>
-                ))}
+                {!user ? (
+                  <>
+                    <SignUpButton mode="modal">
+                      <div className="w-full text-left px-2 py-1 rounded hover:bg-white/10 cursor-pointer flex items-center gap-2">
+                        <UserPlus className="w-4 h-4" />
+                        <span>Register</span>
+                      </div>
+                    </SignUpButton>
+                    <SignInButton mode="modal">
+                      <div className="w-full text-left px-2 py-1 mt-1 rounded hover:bg-white/10 cursor-pointer flex items-center gap-2">
+                        <LogIn className="w-4 h-4" />
+                        <span>Login</span>
+                      </div>
+                    </SignInButton>
+                  </>
+                ) : (
+                  <div className="px-2 py-1 mt-1 rounded hover:bg-white/10 cursor-pointer flex items-center justify-between">
+                    <span className="text-sm">Signed in</span>
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Background overlay to close menu */}
             <div
               className="fixed inset-0 z-[900]"
               onClick={() => setOpen(false)}

@@ -9,7 +9,7 @@ export const UrlCard = ({
     value,
 }: UrlCardProps) => {
     return (
-        <div className="rounded-xl bg-black p-6">
+        <div className="rounded-xl bg-neutral-500 dark:bg-black p-6">
             <div className="flex items-center gap-x-10">
                 <p className="font-semibold shrink-0">
                 Url Card

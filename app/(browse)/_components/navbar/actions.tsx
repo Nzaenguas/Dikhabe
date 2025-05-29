@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useUser, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { Clapperboard } from "lucide-react";
+import { Clapperboard, LogIn } from "lucide-react";
 
 export const Actions = () => {
   const { user } = useUser();
@@ -13,7 +13,8 @@ export const Actions = () => {
       {!user && (
         <SignInButton>
           <Button size="sm" variant="primary">
-            Login
+            <LogIn className="w-4 h-4" />
+              <span>Login</span>
           </Button>
         </SignInButton>
       )}
@@ -31,7 +32,6 @@ export const Actions = () => {
             </Link>
           </Button>
           <UserButton />
-
         </div>
       )}
     </div>

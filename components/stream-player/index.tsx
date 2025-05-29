@@ -83,6 +83,7 @@ const {
                         imageUrl={user.imageUrl}
                         isFollowing={isFollowing}
                         name={stream.name}
+                        streamId={stream.id}  
                     />
                     <InfoCard 
                         hostIdentity={user.id}

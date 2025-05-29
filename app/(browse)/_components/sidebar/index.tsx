@@ -24,7 +24,7 @@ export const Sidebar = async () => {
 export const SideBarSkeleton = () => {
   return (
     <aside className="fixed left-0 flex flex-col w-[70px] lg:w-60
-    h-full bg-black border-r border-[#2D2E35] z50">
+    h-full bg-neutral-500 dark:bg-black border-r border-[#2D2E35] z50">
       <ToggleSkeleton />
       <FollowingSkeleton />
       <RecommendedSkeleton />
