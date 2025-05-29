@@ -5,6 +5,7 @@ import { Following, FollowingSkeleton } from "./following"
 import { Recommended, RecommendedSkeleton } from "./recommended";
 
 import { getRecommended } from "@/lib/recommended-service";
+import { Button } from "@/components/ui/button";
 
 export const Sidebar = async () => {
   const recommended = await getRecommended();
@@ -16,6 +17,11 @@ export const Sidebar = async () => {
           <div className="space-y-4 pt-4 lg:pt-0">
             <Following data={following} />
             <Recommended data={recommended} />
+          </div>
+          <div>
+            <Button>
+              About
+            </Button>
           </div>
         </Wrapper>
     );
