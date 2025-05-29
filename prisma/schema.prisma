@@ -12,7 +12,9 @@ model User {
   id              String   @id @default(uuid())
   username        String   @unique
   imageUrl        String
-  externalUserId  String @unique
+
+  externalUserId  String   @unique
+
   bio             String?
 
   following Follow[] @relation("Following")
