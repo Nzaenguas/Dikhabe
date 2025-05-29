@@ -1,6 +1,6 @@
 "use client";
 
-import { toast, Toaster } from 'sonner';
+import { toast } from 'sonner';
 import { useTransition } from "react";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { onBlock, onUnblock } from "@/actions/block";

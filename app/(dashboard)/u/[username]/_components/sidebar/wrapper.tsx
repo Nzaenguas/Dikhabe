@@ -2,9 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useCreatorSidebar } from "@/store/use-creator-sidebar";
-import { useEffect, useState } from "react";
 import { NavItemSkeleton } from "./nav-item";
-import ChatLoading from "../../chat/loading";
 import { useIsClient } from "usehooks-ts";
 
 interface WrapperProps {

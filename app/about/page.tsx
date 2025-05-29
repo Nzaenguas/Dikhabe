@@ -8,7 +8,7 @@ export default function AboutPage() {
         <div className="max-w-2xl text-center space-y-6">
           <h1 className="text-4xl font-bold">About Dikhabe</h1>
           <p className="text-lg text-gray-300">
-            <strong>Dikhabe</strong> is a next-generation live streaming platform built to empower creators and connect audiences in real time. Whether you're gaming, teaching, performing, or sharing everyday moments — Dikhabe provides the tools and performance to broadcast it all.
+            <strong>Dikhabe</strong> is a next-generation live streaming platform built to empower creators and connect audiences in real time. Whether you&apos;re gaming, teaching, performing, or sharing everyday moments — Dikhabe provides the tools and performance to broadcast it all.
           </p>
           <p className="text-gray-400">
             Built using modern technologies like <strong>Next.js</strong>, <strong>LiveKit</strong>, and <strong>WebRTC</strong>, Dikhabe ensures low-latency, high-quality streams for everyone.

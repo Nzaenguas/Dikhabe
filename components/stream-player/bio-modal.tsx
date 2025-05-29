@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
-import { Hint } from "@/components/hint";
 import { Textarea } from "@/components/ui/textarea";
 import { useRef, useState, useTransition } from "react";
 import { updateUser } from "@/actions/user";

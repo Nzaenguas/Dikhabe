@@ -1,6 +1,6 @@
 "use client"
 
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { cn } from "@/lib/utils";

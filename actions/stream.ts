@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { Stream } from "@prisma/client"
 import { revalidatePath } from "next/cache"
