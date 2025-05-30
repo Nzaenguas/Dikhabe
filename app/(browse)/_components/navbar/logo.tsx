@@ -40,7 +40,7 @@ export const Logo = () => {
           alt="Dikhabe"
           width={45}
           height={45}
-          className="rounded-full"
+          className="rounded-full object-cover w-full h-full"
         />
       </button>
 
