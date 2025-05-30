@@ -25,9 +25,9 @@ import Link from "next/link";
         <Button
         asChild
         className={cn(
-            "w-full h-12 bg-neutral-500 dark:bg-black hover:bg-white text-black dark:text-white/70",
+            "w-full h-12 bg-black hover:bg-white/10 text-white/70",
             collapsed ? "justify-center" : "justify-start",
-            isActive && "bg-white dark:bg-zinc-700",
+            isActive && "bg-zinc-700",
         )}
         >
             <Link href={href}>

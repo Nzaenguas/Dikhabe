@@ -8,7 +8,7 @@ export const Actions = () => {
     <div className="flex items-center gap-x-4 ml-2 lg:ml-auto">
         <Button
         size="sm"
-        className="text-black dark:text-white/50 bg-neutral-500 hover:bg-white dark:bg-black"
+        className="text-white/50 hover:bg-white/10 bg-black"
         asChild>
             <Link href="/">
             <LogOut className="h-5 w-5 mr-2" />
