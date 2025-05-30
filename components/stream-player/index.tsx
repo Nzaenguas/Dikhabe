@@ -2,6 +2,7 @@
 import { LiveKitRoom } from "@livekit/components-react";
 import { useState, useEffect } from "react";
 
+import Image from "next/image";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 import { Video, VideoSkeleton } from "./video";
 import { useViewerToken } from "@/hooks/use-viewer-token";
@@ -96,10 +97,13 @@ export const StreamPlayer = ({
           )}
         >
           <div className="relative w-full h-[400px] bg-black rounded-md overflow-hidden">
-            <img
+            <Image
               src="/background.jpg"
               alt="Stream Thumbnail"
               className="w-full h-full object-cover"
+              fill
+              priority
+              style={{ objectFit: "cover" }}
             />
             <div
               className="absolute top-20 left-5 bottom-20 right-60 rounded-md overflow-hidden border border-white/10 shadow-lg bg-black"
@@ -125,7 +129,7 @@ export const StreamPlayer = ({
               {["home", "about", "videos", "chat"].map((t) => (
                 <button
                   key={t}
-                  onClick={() => setTab(t as any)}
+                  onClick={() => setTab(t as "home" | "about" | "videos" | "chat")}
                   className={cn(
                     "py-2 px-3 border-b-2 transition",
                     tab === t
