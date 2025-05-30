@@ -98,8 +98,12 @@ export async function POST(req: NextRequest) {
 }
 
     return new Response('Webhook handled successfully', { status: 200 });
-  } catch (err: any) {
-    console.error('❌ Error handling webhook:', err);
+ } catch (err: unknown) {
+  if (err instanceof Error) {
+    console.error('❌ Error handling webhook:', err.message);
+  } else {
+    console.error('❌ Unknown error handling webhook:', err);
+  }
     return new Response('Internal server error', { status: 500 });
   }
 }

@@ -1,6 +1,4 @@
 "use client";
-
-import { Stream, User } from "@prisma/client";
 import { LiveKitRoom } from "@livekit/components-react";
 
 import { useChatSidebar } from "@/store/use-chat-sidebar";

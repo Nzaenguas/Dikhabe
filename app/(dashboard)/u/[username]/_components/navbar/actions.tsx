@@ -15,8 +15,8 @@ export const Actions = () => {
                 Exit
             </Link>
         </Button>
-        <UserButton {...({
-            signOutRedirectUrl:"/"} as any)}/>
+        <UserButton 
+            afterSignOutUrl="/" />
     </div>
     );
 };
