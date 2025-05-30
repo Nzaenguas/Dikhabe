@@ -4,7 +4,7 @@ import type { Configuration } from 'webpack';
 
 const nextConfig: NextConfig = {
   // @ts-ignore: custom property for dev proxy
-  allowedDevOrigins: ['lacewing-easy-pleasantly.ngrok-free.app'],
+  allowedDevOrigins: ['dikhabe.vercel.app'],
 
   images: {
     remotePatterns: [
