@@ -3,13 +3,13 @@ import { Results, ResultsSkeleton } from "./_components/results";
 import { Suspense } from "react";
 
 interface SearchProps {
-  searchParams: {
+  searchParams: Promise<{
     term?: string;
-  };
+  }>;
 }
 
 const SearchPage = async ({ searchParams }: SearchProps) => {
-  const term = searchParams.term;
+  const { term } = await searchParams;
 
   if (!term) {
     redirect("/");
