@@ -11,7 +11,7 @@ interface ChatMessageProps {
 export const ChatMessage = ({
     data,
 }: ChatMessageProps) => {
-    const color = stringToColor(data.form?.name || "")
+    const color = stringToColor(data.from?.name || "")
 
     return (
         <div className="flex gap-2 p-2 rounded-md hover:bg-white/5">
