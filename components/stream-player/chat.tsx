@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ConnectionState } from "livekit-client";
-import { useMediaQuery } from "usehooks-ts";
 import { 
     useChat,
     useConnectionState, 
@@ -36,23 +35,15 @@ export const Chat = ({
     isChatFollowersOnly,
 
 }: ChatProps) => {
-    const matches = useMediaQuery('(max-width: 1024px)');
-    const { variant, onExpand } = useChatSidebar((state) => state);
     const connectionState = useConnectionState();
     const participant = useRemoteParticipant(hostIdentity);
 
-    const isOnline = participant && connectionState === ConnectionState.Connected
+    const isOnline = participant && connectionState === ConnectionState.Connected;
 
     const isHidden = !isChatEnabled || !isOnline;
 
     const [value, setValue] = useState("");
     const { chatMessages: messages, send } = useChat();
-
-    useEffect(() => {
-        if (matches) {
-            onExpand();
-        }
-    }, [matches, onExpand]);
 
     const reversedMessages = useMemo(() => {
         return messages.sort((a,b) => b.timestamp - a.timestamp);
@@ -69,9 +60,12 @@ export const Chat = ({
         setValue(value);
     };
 
+    const variant = useChatSidebar(state => state.variant);
+
+    // Removed all expand/collapse toggle and related useEffect
+
     return (
-        <div className="flex flex-col borber-1 border-b pt-0 h-[calc(100vh-80px)] bg-black"
-        >
+        <div className="flex flex-col borber-1 border-b pt-0 h-[calc(100vh-80px)] bg-black">
             <ChatHeader />
             {variant === ChatVariant.CHAT && (
                 <>

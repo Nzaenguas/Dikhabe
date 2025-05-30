@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  preview = ["fullTextSearch", "fullTextIndex"]
+  preview  = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -9,42 +9,43 @@ datasource db {
 }
 
 model User {
-  id              String   @id @default(uuid())
-  username        String   @unique
-  imageUrl        String
+  id       String @id @default(uuid())
+  username String @unique
+  imageUrl String
 
-  externalUserId  String   @unique
+  externalUserId String @unique
 
-  bio             String?
+  bio String?
 
-  following Follow[] @relation("Following")
+  following  Follow[] @relation("Following")
   followedBy Follow[] @relation("FollowedBy")
 
-  blocking Block[] @relation("Blocking")
+  blocking  Block[] @relation("Blocking")
   blockedBy Block[] @relation("BlockedBy")
 
   stream Stream?
+  videos Video[]
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Stream {
-  id String @id @default(uuid())
-  name String @db.String
+  id           String  @id @default(uuid())
+  name         String  @db.String
   thumbnailUrl String? @db.String
 
   ingressId String? @unique
   serverUrl String? @db.String
   streamKey String? @db.String
 
-  isLive Boolean @default(false)
-  isChatEnabled Boolean @default(true)
-  isChatDelayed Boolean @default(false)
+  isLive              Boolean @default(false)
+  isChatEnabled       Boolean @default(true)
+  isChatDelayed       Boolean @default(false)
   isChatFollowersOnly Boolean @default(false)
 
   userId String @unique
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -54,15 +55,15 @@ model Stream {
 }
 
 model Follow {
-  id                            String   @id@default(uuid())
-  followerId                    String
-  followingId                   String
+  id          String @id @default(uuid())
+  followerId  String
+  followingId String
 
-  follower  User     @relation(name:"Following", fields: [followerId], references: [id], onDelete: Cascade)
-  following User     @relation(name:"FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+  follower  User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
 
-  createdAt                     DateTime @default(now())
-  updatedAt                     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([followerId, followingId])
   @@index([followerId])
@@ -70,7 +71,7 @@ model Follow {
 }
 
 model Block {
-  id String @id @default(uuid())
+  id        String @id @default(uuid())
   blockerId String
   blockedId String
 
@@ -80,4 +81,12 @@ model Block {
   @@unique([blockerId, blockedId])
   @@index([blockerId])
   @@index([blockedId])
+}
+
+model Video {
+  id        String   @id @default(cuid())
+  url       String
+  createdAt DateTime @default(now())
+  hostId    String
+  host      User     @relation(fields: [hostId], references: [id], onDelete: Cascade)
 }

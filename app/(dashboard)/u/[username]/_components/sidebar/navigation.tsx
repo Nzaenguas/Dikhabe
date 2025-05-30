@@ -2,10 +2,10 @@
 import { useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import {
-    Fullscreen,
     KeyRound,
     MessageSquare,
     Users,
+    User
 } from "lucide-react";
 import { NavItem, NavItemSkeleton } from "./nav-item";
 
@@ -15,9 +15,9 @@ export const Navigation = () => {
 
     const routes = [
         {
-            label: "Stream",
+            label: "Profile",
             href: `/u/${user?.username}`,
-            icon: Fullscreen,
+            icon: User,
         },
         {
             label: "Keys",
