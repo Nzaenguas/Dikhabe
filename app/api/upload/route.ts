@@ -14,30 +14,39 @@ export const config = {
   },
 };
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<Response> {
   const formData = await req.formData();
-  const file = formData.get('file') as File;
+  const file = formData.get('file') as File | null;
 
   if (!file) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 });
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-
   const stream = Readable.from(buffer);
 
-  return await new Promise((resolve) => {
-    const upload = cloudinary.uploader.upload_stream(
+  return new Promise<Response>((resolve) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
       { resource_type: 'video' },
       (error, result) => {
         if (error || !result) {
-          resolve(NextResponse.json({ error: error?.message || 'Upload failed' }, { status: 500 }));
-        } else {
-          resolve(NextResponse.json({ url: result.secure_url }, { status: 200 }));
+          resolve(
+            NextResponse.json(
+              { error: error?.message ?? 'Upload failed' },
+              { status: 500 }
+            )
+          );
+          return;
         }
+        resolve(
+          NextResponse.json(
+            { url: result.secure_url },
+            { status: 200 }
+          )
+        );
       }
     );
 
-    stream.pipe(upload);
+    stream.pipe(uploadStream);
   });
 }
