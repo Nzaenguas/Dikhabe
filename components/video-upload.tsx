@@ -65,8 +65,12 @@ export function VideoUploadDialog({
       onOpenChange(false);
       setName("");
       setSelectedFileName("");
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setIsUploading(false);
     }
