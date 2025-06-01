@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { v2 as cloudinary } from "cloudinary";
@@ -10,10 +10,10 @@ cloudinary.config({
 });
 
 export async function GET(
-  req: Request,
-  { params }: { params: { videoId: string } }
+  req: NextRequest,
+  context: { params: Record<string, string> }
 ) {
-  const { videoId } = params;
+  const { videoId } = context.params;
 
   try {
     const video = await db.video.findUnique({
