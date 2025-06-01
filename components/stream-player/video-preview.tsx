@@ -35,7 +35,7 @@ export function VideoPreview({ username, viewerIdentity, currentVideoId }: Video
   useEffect(() => {
     async function fetchVideos() {
       try {
-        const cached = sessionStorage.getItem(`videos_${username}`);
+        const cached = localStorage.getItem(`videos_${username}`);
         if (cached) {
           const parsed = JSON.parse(cached);
           setVideos(parsed);
@@ -56,7 +56,7 @@ export function VideoPreview({ username, viewerIdentity, currentVideoId }: Video
         const withState = data.map((video) => ({ ...video, isPlaying: false }));
         setVideos(withState);
         console.log("Set videos state:", withState);
-        sessionStorage.setItem(`videos_${username}`, JSON.stringify(withState));
+        localStorage.setItem(`videos_${username}`, JSON.stringify(withState));
       } catch (error) {
         console.error("Error fetching videos:", error);
       }
@@ -77,7 +77,7 @@ export function VideoPreview({ username, viewerIdentity, currentVideoId }: Video
 
     setVideos((prev) => {
       const updated = [newVideo, ...prev];
-      sessionStorage.setItem(`videos_${username}`, JSON.stringify(updated));
+      localStorage.setItem(`videos_${username}`, JSON.stringify(updated));
       return updated;
     });
   };
@@ -107,7 +107,7 @@ export function VideoPreview({ username, viewerIdentity, currentVideoId }: Video
 
       setVideos((prev) => {
         const updated = prev.filter((v) => v.id !== videoId);
-        sessionStorage.setItem(`videos_${username}`, JSON.stringify(updated));
+        localStorage.setItem(`videos_${username}`, JSON.stringify(updated));
         return updated;
       });
     } catch (error) {
