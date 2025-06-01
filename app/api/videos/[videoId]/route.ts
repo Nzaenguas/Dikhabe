@@ -61,10 +61,10 @@ export async function GET(
 
 export async function DELETE(
   req: Request,
-  context: { params: { videoId: string } }
+  { params }: { params: { videoId: string } }
 ) {
-  const params = await context.params; 
-  console.log("DELETE called with videoId:", params.videoId);
+  const { videoId } = params;
+  console.log("DELETE called with videoId:", videoId);
 
   const { userId } = await auth();
 
@@ -73,7 +73,7 @@ export async function DELETE(
   }
 
   const video = await db.video.findUnique({
-    where: { id: params.videoId },
+    where: { id: videoId },
     include: { user: true },
   });
 
@@ -82,7 +82,7 @@ export async function DELETE(
   }
 
   await db.video.delete({
-    where: { id: params.videoId },
+    where: { id: videoId },
   });
 
   return NextResponse.json({ success: true });
