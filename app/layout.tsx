@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider appearance={{ baseTheme: dark }}>
-  <html lang="en" className="h-full w-full" suppressHydrationWarning>
-    <body className="h-full w-full bg-zinc-700">
+  <html lang="en" className="h-full w-full bg-zinc-700 dark" suppressHydrationWarning>
+    <body className="h-auto w-full bg-zinc-700">
       <ThemeProvider 
         attribute="class" 
         defaultTheme="dark"

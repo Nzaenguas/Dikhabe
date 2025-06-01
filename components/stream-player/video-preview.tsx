@@ -37,7 +37,9 @@ export function VideoPreview({ username, viewerIdentity, currentVideoId }: Video
       try {
         const cached = sessionStorage.getItem(`videos_${username}`);
         if (cached) {
-          setVideos(JSON.parse(cached));
+          const parsed = JSON.parse(cached);
+          setVideos(parsed);
+          console.log("Cached videos:", parsed);
           return;
         }
 
@@ -45,17 +47,15 @@ export function VideoPreview({ username, viewerIdentity, currentVideoId }: Video
         if (!res.ok) throw new Error("Failed to fetch videos");
 
         let data: Video[] = await res.json();
-        console.log("Video IDs fetched:", data.map(v => v.id));
+        console.log("Fetched videos:", data);
+
         if (currentVideoId) {
           data = data.filter((video) => video.id !== currentVideoId);
         }
 
-        const withState = data.map((video) => ({
-          ...video,
-          isPlaying: false,
-        }));
-
+        const withState = data.map((video) => ({ ...video, isPlaying: false }));
         setVideos(withState);
+        console.log("Set videos state:", withState);
         sessionStorage.setItem(`videos_${username}`, JSON.stringify(withState));
       } catch (error) {
         console.error("Error fetching videos:", error);
@@ -64,6 +64,7 @@ export function VideoPreview({ username, viewerIdentity, currentVideoId }: Video
 
     fetchVideos();
   }, [username, currentVideoId]);
+
 
   const handleUploadSuccess = (id: string, url: string, name?: string) => {
     const newVideo: Video = {

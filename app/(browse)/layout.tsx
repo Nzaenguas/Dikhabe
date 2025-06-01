@@ -11,7 +11,7 @@ const BrowseLayout = ({
     return (
       <>
         <Navbar />
-            <div className="flex h-full bg-gray/600 pt-20">
+            <div className="flex h-full bg-zinc-700 pt-20">
               <Suspense fallback={<SideBarSkeleton/>}>
               <Sidebar />
               </Suspense>
