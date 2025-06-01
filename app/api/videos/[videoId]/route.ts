@@ -9,11 +9,13 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { videoId: string } }
-) {
-  const { videoId } = params;
+function extractVideoIdFromPath(pathname: string) {
+  const parts = pathname.split("/");
+  return parts[parts.length - 1];
+}
+
+export async function GET(req: NextRequest) {
+  const videoId = extractVideoIdFromPath(req.nextUrl.pathname);
 
   try {
     const video = await db.video.findUnique({
@@ -59,12 +61,8 @@ export async function GET(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { videoId: string } }
-) {
-  const { videoId } = params;
-  console.log("DELETE called with videoId:", videoId);
+export async function DELETE(req: NextRequest) {
+  const videoId = extractVideoIdFromPath(req.nextUrl.pathname);
 
   const { userId } = await auth();
 
