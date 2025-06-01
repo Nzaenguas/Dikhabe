@@ -9,61 +9,49 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  username String @unique
-  imageUrl String
-
-  externalUserId String @unique
-
-  bio String?
-
-  following  Follow[] @relation("Following")
-  followedBy Follow[] @relation("FollowedBy")
-
-  blocking  Block[] @relation("Blocking")
-  blockedBy Block[] @relation("BlockedBy")
-
-  stream Stream?
-  videos Video[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(uuid())
+  username       String   @unique
+  imageUrl       String
+  externalUserId String   @unique
+  bio            String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  blockedBy      Block[]  @relation("BlockedBy")
+  blocking       Block[]  @relation("Blocking")
+  following      Follow[] @relation("Following")
+  followedBy     Follow[] @relation("FollowedBy")
+  stream         Stream?
+  videos         Video[]
 }
 
 model Stream {
-  id           String  @id @default(uuid())
-  name         String  @db.String
-  thumbnailUrl String? @db.String
-
-  ingressId String? @unique
-  serverUrl String? @db.String
-  streamKey String? @db.String
-
-  isLive              Boolean @default(false)
-  isChatEnabled       Boolean @default(true)
-  isChatDelayed       Boolean @default(false)
-  isChatFollowersOnly Boolean @default(false)
-
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                  String   @id @default(uuid())
+  name                String
+  thumbnailUrl        String?
+  ingressId           String?  @unique
+  serverUrl           String?
+  streamKey           String?
+  isLive              Boolean  @default(false)
+  isChatEnabled       Boolean  @default(true)
+  isChatDelayed       Boolean  @default(false)
+  isChatFollowersOnly Boolean  @default(false)
+  userId              String   @unique
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([ingressId])
 }
 
 model Follow {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   followerId  String
   followingId String
-
-  follower  User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
-  following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  follower    User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
   @@index([followerId])
@@ -74,9 +62,8 @@ model Block {
   id        String @id @default(uuid())
   blockerId String
   blockedId String
-
-  blocker User @relation(name: "Blocking", fields: [blockerId], references: [id], onDelete: Cascade)
-  blocked User @relation(name: "BlockedBy", fields: [blockedId], references: [id], onDelete: Cascade)
+  blocked   User   @relation("BlockedBy", fields: [blockedId], references: [id], onDelete: Cascade)
+  blocker   User   @relation("Blocking", fields: [blockerId], references: [id], onDelete: Cascade)
 
   @@unique([blockerId, blockedId])
   @@index([blockerId])
@@ -86,7 +73,10 @@ model Block {
 model Video {
   id        String   @id @default(cuid())
   url       String
+  name      String?
+  thumbnail String?
   createdAt DateTime @default(now())
-  hostId    String
-  host      User     @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
 }
+

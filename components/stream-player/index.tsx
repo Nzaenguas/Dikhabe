@@ -12,7 +12,7 @@ import { ChatToggle } from "./chat-toggle";
 import { Header, HeaderSkeleton } from "./header";
 import { InfoCard } from "./info-card";
 import { AboutCard } from "./about-card";
-import { VideoUpload } from "./video-upload";
+import { VideoPreview } from "./video-preview";
 
 type CustomStream = {
   id: string;
@@ -72,6 +72,8 @@ export const StreamPlayer = ({
 
   const isDesktop = window.innerWidth >= 1024;
   const showChat = tab === "chat";
+  console.log("Passed to VideoPreview:", { username: user.username, identity });
+
 
   return (
     <>
@@ -171,8 +173,9 @@ export const StreamPlayer = ({
 
             {tab === "videos" && (
                 <div>
-                    <VideoUpload hostIdentity={user.id} viewerIdentity={identity} />
+                    <VideoPreview username={user.id} viewerIdentity={identity}  />
                 </div>
+                
             )}
 
             {/* On mobile, show chat inside tab content (below others) */}

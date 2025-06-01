@@ -1,45 +1,46 @@
 "use client";
 
-import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { JwtPayload, jwtDecode } from "jwt-decode";
-
+import { jwtDecode } from "jwt-decode";
+import { toast } from "sonner";
 import { createViewerToken } from "@/actions/token";
 
+interface DecodedToken {
+  sub?: string;
+  name?: string;
+}
+
 export const useViewerToken = (hostIdentity: string) => {
-    const [token, setToken] = useState("");
-    const [name, setName] = useState("");
-    const [identity, setIdentity] = useState ("");
+  const [token, setToken] = useState("");
+  const [name, setName] = useState("");
+  const [identity, setIdentity] = useState("");
 
-    useEffect(() => {
-        const createToken = async () => {
-            try {
-                const viewerToken = await createViewerToken(hostIdentity);
-                setToken(viewerToken);
+  useEffect(() => {
+    if (!hostIdentity) return;
 
-                const decodedToken = jwtDecode(viewerToken) as JwtPayload & { name?: string };
-                const name = decodedToken?.name;
-                const identity = decodedToken?.sub;
+    let isCancelled = false;
 
+    const createToken = async () => {
+      try {
+        const viewerToken = await createViewerToken(hostIdentity);
+        if (isCancelled) return;
 
-                if (identity) {
-                    setIdentity(identity);
-                }
+        setToken(viewerToken);
 
-                if(name) {
-                    setName(name);
-                }
-
-            } catch {
-                toast.error("Something went wrong");
-            }
-        }
-        createToken();
-    }, [hostIdentity]);
-
-    return {
-        token,
-        name,
-        identity,
+        const decoded = jwtDecode<DecodedToken>(viewerToken);
+        if (decoded.sub) setIdentity(decoded.sub);
+        if (decoded.name) setName(decoded.name);
+      } catch {
+        toast.error("Something went wrong");
+      }
     };
+
+    createToken();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [hostIdentity]);
+
+  return { token, name, identity };
 };
