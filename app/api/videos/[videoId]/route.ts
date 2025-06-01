@@ -11,9 +11,9 @@ cloudinary.config({
 
 export async function GET(
   req: NextRequest,
-  context: { params: Record<string, string> }
+  { params }: { params: { videoId: string } }
 ) {
-  const { videoId } = context.params;
+  const { videoId } = params;
 
   try {
     const video = await db.video.findUnique({
@@ -60,7 +60,7 @@ export async function GET(
 }
 
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { videoId: string } }
 ) {
   const { videoId } = params;
